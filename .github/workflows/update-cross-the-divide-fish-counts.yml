@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Fetch Alaska Fish & Game counts
         run: python cross-the-divide/update_fish_counts.py
@@ -35,7 +37,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add cross-the-divide/fish-counts.json
           git commit -m "Update Cross the Divide fish counts"
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
           curl --fail-with-body -L -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GH_TOKEN}" \
