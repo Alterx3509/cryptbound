@@ -1,0 +1,10 @@
+{
+  "name": "Cross the Divide",
+  "short_name": "The Divide",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d0f12",
+  "theme_color": "#0d0f12",
+  "description": "A current-location Alaska camping, fishing, weather, light, tide, and fish-passage dashboard."
+}
