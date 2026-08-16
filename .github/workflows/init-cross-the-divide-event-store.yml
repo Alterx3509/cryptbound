@@ -1,0 +1,41 @@
+name: Initialize Cross the Divide event store
+
+on:
+  push:
+    paths:
+      - '.github/workflows/init-cross-the-divide-event-store.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create shared anonymous JSON store if missing
+        run: |
+          set -euo pipefail
+          if [ -f cross-the-divide/event-config.json ]; then
+            echo "Event store already initialized."
+            exit 0
+          fi
+          tmp_headers=$(mktemp)
+          curl -fsS -D "$tmp_headers" -o /tmp/event-body.json \
+            -H 'Content-Type: application/json' \
+            -H 'Accept: application/json' \
+            --data '{"event":"","updated_at":null}' \
+            https://jsonblob.com/api/jsonBlob
+          location=$(awk 'BEGIN{IGNORECASE=1} /^location:/ {gsub("\r",""); sub(/^location:[[:space:]]*/,""); print}' "$tmp_headers" | tail -1)
+          if [ -z "$location" ]; then
+            echo "No Location header returned from JSONBlob" >&2
+            exit 1
+          fi
+          mkdir -p cross-the-divide
+          printf '{\n  "event_store_url": "%s"\n}\n' "$location" > cross-the-divide/event-config.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/event-config.json
+          git commit -m "Initialize Cross the Divide shared event store"
+          git push
