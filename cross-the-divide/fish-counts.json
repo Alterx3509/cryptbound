@@ -1,6 +1,7 @@
 {
   "source": "Alaska Department of Fish and Game",
-  "updated_at": "2026-08-16T19:24:00Z",
+  "updated_at": "2026-08-16T19:26:08.776644+00:00",
+  "failures": [],
   "rivers": [
     {
       "id": "kenai",
@@ -14,8 +15,8 @@
       "seven_day_total": 81893,
       "three_day_average": 9108,
       "status": "FINAL",
-      "note": "Final day of 2026 Kenai River late-run sockeye counts.",
-      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=40&SPECIESID=420"
+      "note": "Left Bank: 4,744; Right Bank: 3,483. This is the final day of counts for Kenai River Late-Run Sockeye in 2026.",
+      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=40&SPECIESID=420&YEAR=2026"
     },
     {
       "id": "kasilof",
@@ -29,8 +30,8 @@
       "seven_day_total": 74079,
       "three_day_average": 7908,
       "status": "FINAL",
-      "note": "Final day of 2026 Kasilof River sockeye counts.",
-      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=41&SPECIESID=420"
+      "note": "Final day for counts on the Kasilof. South Bank: 2,007; North Bank: 4,288",
+      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=41&SPECIESID=420&YEAR=2026"
     },
     {
       "id": "russian",
@@ -44,8 +45,8 @@
       "seven_day_total": 11997,
       "three_day_average": 2013,
       "status": "LATEST",
-      "note": "Latest ADF&G late-run sockeye count available when seeded.",
-      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=13&SPECIESID=422"
+      "note": "Water level 6.63\"",
+      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=13&SPECIESID=422&YEAR=2026"
     }
   ]
 }
