@@ -46,10 +46,13 @@ reg_js = r'''function regTarget(lat,lon){
  if(lon>-141.7&&lat<60.8)return{name:'Southeast Alaska',url:'https://www.adfg.alaska.gov/index.cfm?adfg=fishregulations.se_sportfish',sub:'2026 Southeast sport-fishing regulations',eo:EO};
  return{name:'Northern Alaska',url:'https://www.adfg.alaska.gov/index.cfm?adfg=fishregulations.no_sportfish',sub:'2026 Northern sport-fishing regulations',eo:EO}
 }
-function renderRegs(lat,lon){let r=regTarget(lat,lon);$('regName').textContent=r.name;$('regSub').textContent=r.sub;$('regLink').href=r.url;$('regLink').textContent='OPEN ADF&G ↗';$('eoLink').href=r.eo}'''
-s, n = re.subn(r'function regTarget\(lat,lon\)\{.*?\n\}\nfunction renderRegs\(lat,lon\)\{.*?\}', reg_js, s, count=1, flags=re.S)
-if n != 1:
-    raise SystemExit('reg marker not found')
+function renderRegs(lat,lon){let r=regTarget(lat,lon);$('regName').textContent=r.name;$('regSub').textContent=r.sub;$('regLink').href=r.url;$('regLink').textContent='OPEN ADF&G ↗';$('eoLink').href=r.eo}
+'''
+start = s.find('function regTarget(lat,lon){')
+end = s.find('async function tideStations(){', start)
+if start < 0 or end < 0:
+    raise SystemExit('reg section markers not found')
+s = s[:start] + reg_js + s[end:]
 
 tail = r'''window.addEventListener('online',()=>{setOfflineStatus('ONLINE · refreshing saved data');loadFishCounts();syncLatestEvent();startEventPush()});
 window.addEventListener('offline',()=>{setOfflineStatus('OFFLINE · using saved weather/tide reserve',true);stopEventPush()});
