@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/patch-cross-the-divide-live-event.yml'
+      - 'cross-the-divide/patch_live_event.py'
 
 permissions:
   contents: write
