@@ -6,5 +6,6 @@
   "display": "standalone",
   "background_color": "#0d0f12",
   "theme_color": "#0d0f12",
-  "description": "A current-location Alaska camping, fishing, weather, light, tide, and fish-passage dashboard."
+  "description": "A current-location Alaska camping and fishing dashboard with weather, light, tides, fishing windows, and Kenai Peninsula fish-passage counts.",
+  "version": "1.2"
 }
