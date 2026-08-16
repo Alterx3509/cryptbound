@@ -1,0 +1,34 @@
+name: Diagnose CTD push transport
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ctd-ntfy-diagnose.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test ntfy CORS and publish
+        shell: bash
+        run: |
+          set -x
+          ORIGIN='https://alterx3509.github.io'
+          TOPIC='ctd-GC5u9SeY2eNe1OWNd5jzq9'
+          echo '--- OPTIONS ---'
+          curl -sS -D - -o /tmp/options.out -X OPTIONS \
+            -H "Origin: $ORIGIN" \
+            -H 'Access-Control-Request-Method: POST' \
+            "https://ntfy.sh/$TOPIC" || true
+          cat /tmp/options.out || true
+          echo '--- POST topic body ---'
+          curl -sS -D - -o /tmp/post.out -X POST \
+            -H "Origin: $ORIGIN" \
+            --data '{"type":"ctd_event","text":"transport diagnostic","updated_at":"2026-08-16T21:05:00Z"}' \
+            "https://ntfy.sh/$TOPIC" || true
+          cat /tmp/post.out || true
+          echo '--- GET latest ---'
+          curl -sS -D - -o /tmp/get.out \
+            -H "Origin: $ORIGIN" \
+            "https://ntfy.sh/$TOPIC/json?poll=1&since=latest" || true
+          cat /tmp/get.out || true
