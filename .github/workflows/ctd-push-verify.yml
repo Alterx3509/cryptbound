@@ -1,0 +1,44 @@
+name: CTD push verification
+
+on:
+  push:
+    paths:
+      - 'cross-the-divide/patch_push_verify.py'
+      - '.github/workflows/ctd-push-verify.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check recent group-channel metadata
+        shell: bash
+        run: |
+          curl -fsS 'https://ntfy.sh/ctd-GC5u9SeY2eNe1OWNd5jzq9/json?poll=1&since=10m' -o /tmp/ctd-events.ndjson || true
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/ctd-events.ndjson')
+          for line in p.read_text().splitlines() if p.exists() else []:
+              try:
+                  outer=json.loads(line)
+                  inner=json.loads(outer.get('message','{}'))
+                  if inner.get('type')=='ctd_event':
+                      print({'server_time':outer.get('time'),'updated_at':inner.get('updated_at'),'has_id':bool(inner.get('id')),'text_length':len(str(inner.get('text',''))),'diagnostic':inner.get('text')=='transport diagnostic'})
+              except Exception:
+                  pass
+          PY
+      - name: Apply, validate, and publish
+        shell: bash
+        run: |
+          python cross-the-divide/patch_push_verify.py
+          node --check /tmp/ctd.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/index.html
+          git rm cross-the-divide/patch_push_verify.py .github/workflows/ctd-push-verify.yml
+          git commit -m "Verify Cross the Divide group event delivery"
+          git push
