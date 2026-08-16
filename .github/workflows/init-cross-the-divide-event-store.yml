@@ -21,19 +21,17 @@ jobs:
             echo "Event store already initialized."
             exit 0
           fi
-          tmp_headers=$(mktemp)
-          curl -fsS -D "$tmp_headers" -o /tmp/event-body.json \
+          response=$(curl -fsS \
             -H 'Content-Type: application/json' \
-            -H 'Accept: application/json' \
             --data '{"event":"","updated_at":null}' \
-            https://jsonblob.com/api/jsonBlob
-          location=$(awk 'BEGIN{IGNORECASE=1} /^location:/ {gsub("\r",""); sub(/^location:[[:space:]]*/,""); print}' "$tmp_headers" | tail -1)
-          if [ -z "$location" ]; then
-            echo "No Location header returned from JSONBlob" >&2
+            https://api.jsonstorage.net/v1/json)
+          uri=$(python -c 'import json,sys; print(json.load(sys.stdin)["uri"])' <<< "$response")
+          if [ -z "$uri" ]; then
+            echo "No URI returned from JsonStorage" >&2
             exit 1
           fi
           mkdir -p cross-the-divide
-          printf '{\n  "event_store_url": "%s"\n}\n' "$location" > cross-the-divide/event-config.json
+          printf '{\n  "event_store_url": "%s"\n}\n' "$uri" > cross-the-divide/event-config.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add cross-the-divide/event-config.json
