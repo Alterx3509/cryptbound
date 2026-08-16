@@ -1,0 +1,35 @@
+name: Update Cross the Divide fish counts
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cross-the-divide/update_fish_counts.py'
+      - '.github/workflows/update-cross-the-divide-fish-counts.yml'
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Alaska Fish & Game counts
+        run: python cross-the-divide/update_fish_counts.py
+
+      - name: Commit updated counts
+        run: |
+          if git diff --quiet -- cross-the-divide/fish-counts.json; then
+            echo "No fish-count changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/fish-counts.json
+          git commit -m "Update Cross the Divide fish counts"
+          git push
