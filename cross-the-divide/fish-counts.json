@@ -1,0 +1,51 @@
+{
+  "source": "Alaska Department of Fish and Game",
+  "updated_at": "2026-08-16T19:24:00Z",
+  "rivers": [
+    {
+      "id": "kenai",
+      "name": "Kenai River",
+      "species": "Sockeye",
+      "run": "Late run",
+      "method": "Sonar",
+      "latest_date": "2026-08-10",
+      "daily_count": 8227,
+      "cumulative": 1111781,
+      "seven_day_total": 81893,
+      "three_day_average": 9108,
+      "status": "FINAL",
+      "note": "Final day of 2026 Kenai River late-run sockeye counts.",
+      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=40&SPECIESID=420"
+    },
+    {
+      "id": "kasilof",
+      "name": "Kasilof River",
+      "species": "Sockeye",
+      "run": "Main run",
+      "method": "Sonar",
+      "latest_date": "2026-08-07",
+      "daily_count": 6295,
+      "cumulative": 1055565,
+      "seven_day_total": 74079,
+      "three_day_average": 7908,
+      "status": "FINAL",
+      "note": "Final day of 2026 Kasilof River sockeye counts.",
+      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=41&SPECIESID=420"
+    },
+    {
+      "id": "russian",
+      "name": "Russian River",
+      "species": "Sockeye",
+      "run": "Late run",
+      "method": "Weir",
+      "latest_date": "2026-08-14",
+      "daily_count": 2497,
+      "cumulative": 40279,
+      "seven_day_total": 11997,
+      "three_day_average": 2013,
+      "status": "LATEST",
+      "note": "Latest ADF&G late-run sockeye count available when seeded.",
+      "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=13&SPECIESID=422"
+    }
+  ]
+}
