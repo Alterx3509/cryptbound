@@ -1,11 +1,19 @@
-const CACHE='ctd-shell-v7';
-const SHELL=['./','./index.html','./manifest.json'];
+const CACHE='ctd-shell-v8';
+const SHELL=['./','./index.html','./manifest.json','./recover.html'];
 const SUNCALC='https://cdn.jsdelivr.net/npm/suncalc/+esm';
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
     const c=await caches.open(CACHE);
-    await c.addAll(SHELL);
-    try{await c.add(SUNCALC)}catch(e){}
+    for(const item of SHELL){
+      try{
+        const res=await fetch(item,{cache:'reload'});
+        if(res.ok)await c.put(item,res.clone());
+      }catch(e){}
+    }
+    try{
+      const res=await fetch(SUNCALC,{cache:'reload'});
+      if(res.ok)await c.put(SUNCALC,res.clone());
+    }catch(e){}
     await self.skipWaiting();
   })());
 });
@@ -24,23 +32,27 @@ self.addEventListener('fetch',event=>{
     event.respondWith((async()=>{
       const c=await caches.open(CACHE);
       try{
-        const res=await fetch(req);
+        const freshReq=new Request(req,{cache:'no-store'});
+        const res=await fetch(freshReq);
         if(res.ok)c.put(req,res.clone()).catch(()=>{});
         return res;
       }catch(e){
-        return (await caches.match(req)) || (req.mode==='navigate' ? caches.match('./index.html') : Promise.reject(e));
+        return (await caches.match(req,{ignoreSearch:true})) || (req.mode==='navigate' ? caches.match('./index.html') : Promise.reject(e));
       }
     })());
     return;
   }
   if(url.hostname==='cdn.jsdelivr.net'){
     event.respondWith((async()=>{
-      const cached=await caches.match(req);
-      if(cached)return cached;
-      const res=await fetch(req);
-      const c=await caches.open(CACHE);
-      c.put(req,res.clone()).catch(()=>{});
-      return res;
+      try{
+        const res=await fetch(new Request(req,{cache:'no-store'}));
+        if(res.ok){const c=await caches.open(CACHE);c.put(req,res.clone()).catch(()=>{});}
+        return res;
+      }catch(e){
+        const cached=await caches.match(req);
+        if(cached)return cached;
+        throw e;
+      }
     })());
   }
 });
