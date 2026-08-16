@@ -1,4 +1,4 @@
-const CACHE='ctd-shell-v4';
+const CACHE='ctd-shell-v5';
 const SHELL=['./','./index.html','./manifest.json'];
 const SUNCALC='https://cdn.jsdelivr.net/npm/suncalc/+esm';
 self.addEventListener('install',event=>{
@@ -20,19 +20,27 @@ self.addEventListener('fetch',event=>{
   if(req.method!=='GET')return;
   const url=new URL(req.url);
   if(url.hostname==='raw.githubusercontent.com')return;
-  if(url.origin===location.origin || url.hostname==='cdn.jsdelivr.net'){
+  if(url.origin===location.origin){
+    event.respondWith((async()=>{
+      const c=await caches.open(CACHE);
+      try{
+        const res=await fetch(req);
+        if(res.ok)c.put(req,res.clone()).catch(()=>{});
+        return res;
+      }catch(e){
+        return (await caches.match(req)) || (req.mode==='navigate' ? caches.match('./index.html') : Promise.reject(e));
+      }
+    })());
+    return;
+  }
+  if(url.hostname==='cdn.jsdelivr.net'){
     event.respondWith((async()=>{
       const cached=await caches.match(req);
       if(cached)return cached;
-      try{
-        const res=await fetch(req);
-        const c=await caches.open(CACHE);
-        c.put(req,res.clone()).catch(()=>{});
-        return res;
-      }catch(e){
-        if(req.mode==='navigate')return caches.match('./index.html');
-        throw e;
-      }
+      const res=await fetch(req);
+      const c=await caches.open(CACHE);
+      c.put(req,res.clone()).catch(()=>{});
+      return res;
     })());
   }
 });
