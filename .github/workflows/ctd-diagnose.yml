@@ -1,0 +1,23 @@
+name: Diagnose Cross the Divide
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ctd-diagnose.yml'
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check inline module syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('cross-the-divide/index.html').read_text()
+          a=s.index('<script type="module">')+len('<script type="module">')
+          b=s.index('</script>',a)
+          Path('/tmp/ctd.mjs').write_text(s[a:b])
+          print('module chars',b-a)
+          PY
+          node --check /tmp/ctd.mjs
