@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0f12">
+<title>Repairing Cross the Divide</title>
+<style>
+:root{color-scheme:dark}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0d0f12;color:#f5f3ef;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}.box{width:min(88vw,420px);padding:24px;border:1px solid #2d323a;border-radius:22px;background:#171a1f;text-align:center}.gold{color:#c8a45a;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:11px}h1{font-size:28px;margin:10px 0 8px}.muted{color:#9ca3ad;font-size:13px;line-height:1.45}.spin{width:30px;height:30px;margin:18px auto;border:3px solid #2d323a;border-top-color:#c8a45a;border-radius:50%;animation:s 1s linear infinite}@keyframes s{to{transform:rotate(360deg)}}button{margin-top:15px;border:0;border-radius:999px;padding:12px 18px;background:#e4c77f;color:#111;font-weight:900}
+</style>
+</head>
+<body>
+<div class="box"><div class="gold">Cross the Divide</div><h1>Repairing app…</h1><div class="muted" id="msg">Clearing the broken offline copy and loading the current build.</div><div class="spin"></div><button id="go" hidden>OPEN CURRENT APP</button></div>
+<script>
+(async()=>{
+  try{
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.filter(r=>r.scope.includes('/cryptbound/cross-the-divide/')).map(r=>r.unregister()));
+    }
+    if('caches' in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.filter(k=>k.startsWith('ctd-shell-')).map(k=>caches.delete(k)));
+    }
+    try{sessionStorage.setItem('ctd_recovered',Date.now().toString())}catch(e){}
+    const target='./?recovered='+Date.now();
+    setTimeout(()=>location.replace(target),350);
+  }catch(e){
+    document.getElementById('msg').textContent='Automatic repair could not finish. Tap below to load a fresh copy.';
+    const b=document.getElementById('go');b.hidden=false;b.onclick=()=>location.replace('./?recovered='+Date.now());
+  }
+})();
+</script>
+</body>
+</html>
