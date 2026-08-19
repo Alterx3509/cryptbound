@@ -1,0 +1,35 @@
+name: Verify CTD live build
+on:
+  push:
+    paths:
+      - '.github/workflows/ctd-live-verify.yml'
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public Pages build
+        shell: bash
+        run: |
+          ok=0
+          for i in $(seq 1 18); do
+            curl -fsSL -H 'Cache-Control: no-cache' 'https://alterx3509.github.io/cryptbound/cross-the-divide/?verify=202608181704' -o /tmp/live.html || true
+            if grep -q 'Build 2026.08.18.1704' /tmp/live.html && grep -q './bear.js' /tmp/live.html && grep -q './updater.js' /tmp/live.html; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          if [ "$ok" != 1 ]; then
+            echo 'PUBLIC BUILD NOT CURRENT' >&2
+            exit 1
+          fi
+          printf 'verified_build=2026.08.18.1704\nverified_utc=%s\nbear_module=yes\nauto_updater=yes\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > cross-the-divide/live-verify.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/live-verify.txt
+          git rm .github/workflows/ctd-live-verify.yml
+          git commit -m "Verify live Cross the Divide build 1704"
+          git push
