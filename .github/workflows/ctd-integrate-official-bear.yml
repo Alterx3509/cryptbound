@@ -1,0 +1,28 @@
+name: Integrate CTD official bear layer
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ctd-integrate-official-bear.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch and validate
+        run: |
+          python cross-the-divide/patch_official_bear.py
+          node --check cross-the-divide/bear.js
+          node --check cross-the-divide/official-bear.js
+          node --check cross-the-divide/updater.js
+          node --check /tmp/ctd.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/index.html cross-the-divide/version.json cross-the-divide/updater.js cross-the-divide/service-worker.js cross-the-divide/manifest.json
+          git rm cross-the-divide/patch_official_bear.py .github/workflows/ctd-integrate-official-bear.yml
+          git commit -m "Add official bear alerts to Cross the Divide"
+          git push
