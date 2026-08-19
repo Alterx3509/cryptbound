@@ -1,4 +1,5 @@
-verified_build=2026.08.18.1728
-verified_utc=2026-08-19T01:29:19Z
+verified_build=2026.08.18.1740
+verified_utc=2026-08-19T01:36:45Z
+public_bear_observations=yes
+group_bear_reports=no
 official_bear_module=yes
-official_alert_feed=yes
