@@ -1,0 +1,36 @@
+name: Update Cross the Divide bear alerts
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */6 * * *'
+  push:
+    paths:
+      - 'cross-the-divide/update_bear_alerts.py'
+      - '.github/workflows/update-cross-the-divide-bear-alerts.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch current Chugach bear-related alerts
+        run: python cross-the-divide/update_bear_alerts.py
+      - name: Commit alert data when changed
+        shell: bash
+        run: |
+          if git diff --quiet -- cross-the-divide/bear-alerts.json; then
+            echo 'No alert-data change'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/bear-alerts.json
+          git commit -m "Update Cross the Divide official bear alerts"
+          git pull --rebase origin main
+          git push origin HEAD:main
