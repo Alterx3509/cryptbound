@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const BUILD='2026.08.18.1704';
+const BUILD='2026.08.18.1728';
 let checking=false,lastCheck=0;
 async function checkForUpdate(force=false){
   if(checking||!navigator.onLine)return;

@@ -6,6 +6,6 @@
   "display": "standalone",
   "background_color": "#0d0f12",
   "theme_color": "#0d0f12",
-  "description": "A current-location Alaska camping and fishing dashboard with weather, light, tides, fishing windows, fish-passage counts, group events, and nearby group bear sightings.",
-  "version": "1.4.0"
+  "description": "A current-location Alaska camping and fishing dashboard with weather, light, tides, fishing windows, fish-passage counts, group events, and nearby group/official bear activity.",
+  "version": "1.4"
 }

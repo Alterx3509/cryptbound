@@ -44,11 +44,12 @@
 <section class="card"><div class="sectionhead"><div><p class="kicker">7-DAY OUTLOOK</p><h2>Weather</h2></div><div class="phase" id="weekSummary"></div></div><div class="week" id="week"><div class="why">Loading outlook…</div></div></section>
 <section class="eventSetter"><button id="setEvent" type="button">PUSH EVENT OF THE DAY</button><div class="fishnote">Intended for the group leader. Saving pushes the replacement event to everyone who has Cross the Divide open; phones catch up when they reopen online and keep the last event offline.</div></section>
 <section class="card err" id="error" hidden><strong>Couldn’t load the dashboard.</strong><p id="errorText">Check location permission and your connection, then try again.</p><button class="retry" id="retry">Try again</button></section>
-<footer>Weather: Open-Meteo · Tides: NOAA CO-OPS predictions · Fish counts &amp; regulations: Alaska Department of Fish &amp; Game · Sun &amp; moon: SunCalc<br><span style="color:#9299a3">Build 2026.08.18.1704</span></footer>
+<footer>Weather: Open-Meteo · Tides: NOAA CO-OPS predictions · Fish counts &amp; regulations: Alaska Department of Fish &amp; Game · Sun &amp; moon: SunCalc<br><span style="color:#9299a3">Build 2026.08.18.1728</span></footer>
 </main>
 <div class="modal" id="eventModal" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="eventDialogTitle"><p class="kicker">GROUP LEADER</p><h2 id="eventDialogTitle">Event of the day</h2><textarea id="eventInput" maxlength="240" placeholder="Example: Russian River at 0600. Wheels roll 0515. Bring waders and lunch."></textarea><div class="sheetActions"><button class="cancel" id="cancelEvent" type="button">CANCEL</button><button class="save" id="saveEvent" type="button">PUSH TO GROUP</button></div><div class="sheetHint">The new entry replaces the old Event of the Day. Open group apps update automatically; the latest event is stored on each phone for offline use.</div></div></div>
 <script src="./updater.js" defer></script>
 <script src="./bear.js" defer></script>
+<script src="./official-bear.js" defer></script>
 <script type="module">
 import * as SunCalc from 'https://cdn.jsdelivr.net/npm/suncalc/+esm';
 const $=id=>document.getElementById(id);
