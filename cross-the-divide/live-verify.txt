@@ -1,4 +1,4 @@
-verified_build=2026.08.18.1704
-verified_utc=2026-08-19T01:06:51Z
-bear_module=yes
-auto_updater=yes
+verified_build=2026.08.18.1728
+verified_utc=2026-08-19T01:29:19Z
+official_bear_module=yes
+official_alert_feed=yes
