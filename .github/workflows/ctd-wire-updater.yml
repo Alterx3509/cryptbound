@@ -1,0 +1,25 @@
+name: Wire CTD updater
+on:
+  push:
+    paths:
+      - '.github/workflows/ctd-wire-updater.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire updater and validate
+        shell: bash
+        run: |
+          python -c "from pathlib import Path; p=Path('cross-the-divide/index.html'); s=p.read_text(); s=s.replace('<script src=\"./bear.js\" defer></script>','<script src=\"./updater.js\" defer></script>\\n<script src=\"./bear.js\" defer></script>',1) if './updater.js' not in s else s; s=s.replace('Build 2026.08.18.1657','Build 2026.08.18.1704'); p.write_text(s); a=s.index('<script type=\"module\">')+len('<script type=\"module\">'); b=s.index('</script>',a); Path('/tmp/ctd-main.mjs').write_text(s[a:b])"
+          node --check /tmp/ctd-main.mjs
+          node --check cross-the-divide/updater.js
+          node --check cross-the-divide/bear.js
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cross-the-divide/index.html
+          git rm .github/workflows/ctd-wire-updater.yml
+          git commit -m "Wire Cross the Divide automatic updater"
+          git push
