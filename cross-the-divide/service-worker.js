@@ -1,5 +1,5 @@
-const CACHE='ctd-shell-v9';
-const SHELL=['./','./index.html','./manifest.json','./recover.html','./bear.js'];
+const CACHE='ctd-shell-v10';
+const SHELL=['./','./index.html','./manifest.json','./recover.html','./bear.js','./updater.js','./version.json'];
 const SUNCALC='https://cdn.jsdelivr.net/npm/suncalc/+esm';
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
