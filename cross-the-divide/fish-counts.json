@@ -1,7 +1,9 @@
 {
   "source": "Alaska Department of Fish and Game",
-  "updated_at": "2026-08-24T19:04:05.966257+00:00",
-  "failures": [],
+  "updated_at": "2026-08-25T01:55:55.613889+00:00",
+  "failures": [
+    "Kenai River: Remote end closed connection without response"
+  ],
   "rivers": [
     {
       "id": "kenai",
@@ -14,7 +16,7 @@
       "cumulative": 1111781,
       "seven_day_total": 81893,
       "three_day_average": 9108,
-      "status": "FINAL",
+      "status": "FINAL \u00b7 CACHED",
       "note": "Left Bank: 4,744; Right Bank: 3,483. This is the final day of counts for Kenai River Late-Run Sockeye in 2026.",
       "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=40&SPECIESID=420&YEAR=2026"
     },
