@@ -1,6 +1,6 @@
 {
   "source": "Alaska Department of Fish and Game",
-  "updated_at": "2026-08-31T14:03:19.544084+00:00",
+  "updated_at": "2026-08-31T22:54:44.734110+00:00",
   "failures": [],
   "rivers": [
     {
@@ -39,13 +39,13 @@
       "species": "Sockeye",
       "run": "Late run",
       "method": "Weir",
-      "latest_date": "2026-08-27",
-      "daily_count": 782,
-      "cumulative": 53352,
-      "seven_day_total": 6333,
-      "three_day_average": 845,
+      "latest_date": "2026-08-30",
+      "daily_count": 471,
+      "cumulative": 55249,
+      "seven_day_total": 5264,
+      "three_day_average": 632,
       "status": "LATEST",
-      "note": "Water level 5.50\"",
+      "note": "Water level 5.13\"",
       "official_url": "https://www.adfg.alaska.gov/sf/FishCounts/index.cfm?ADFG=main.displayResults&COUNTLOCATIONID=13&SPECIESID=422&YEAR=2026"
     }
   ]
