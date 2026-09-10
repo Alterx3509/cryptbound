@@ -4,7 +4,7 @@ Open the app: https://alterx3509.github.io/cryptbound/korea-ride/
 
 The deployed index.html is self-contained. No ChatGPT account is needed.
 
-Personal passports, riders, attendance and transport details are stored only in browser localStorage. The Shared day details panel publishes only the selected day's title and notes through ntfy, following Cross the Divide's update pattern. Anyone using the app can edit public day notes. Received notes persist locally. The service retains recent messages for a limited period, so this is not a durable shared database: use Save & share again for a late-joining device that missed an older update. Failed publishing keeps the editor open; it never reports success based on an opaque response.
+Personal passports, riders, attendance and transport details are stored only in browser localStorage. The Shared day details panel publishes only the selected day's title and notes through ntfy. Anyone using the app can edit public day notes. Received notes persist locally. The service retains recent messages for a limited period, so this is not a durable shared database: use Save & share again for a late-joining device that missed an older update. Failed publishing keeps the editor open; it never reports success based on an opaque response.
 
 Weather and place lookup call Open-Meteo and Overpass directly from the browser. Catalog and Naver search fallbacks remain available if those services fail. Distances in the 200 km filter are straight-line distances.
 
