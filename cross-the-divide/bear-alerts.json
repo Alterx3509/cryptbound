@@ -1,14 +1,7 @@
 {
   "source": "USDA Forest Service - Chugach National Forest",
   "source_url": "https://www.fs.usda.gov/r10/chugach/alerts",
-  "checked_at": "2026-09-22T05:20:54Z",
+  "checked_at": "2026-09-22T12:02:56Z",
   "featured_status": "No Featured Alerts at this Time",
-  "alerts": [
-    {
-      "title": "Russian River Occupancy and Use Restrictions",
-      "summary": "36 CFR \u00a7 261.58(s) Leaving a wildlife attractant unattended, unless acceptably stored.",
-      "url": "https://www.fs.usda.gov/r10/chugach/alerts/russian-river-occupancy-and-use-restrictions",
-      "start_date": "June 1, 2026"
-    }
-  ]
+  "alerts": []
 }
