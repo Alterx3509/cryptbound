@@ -1,9 +1,15 @@
 {
   "source": "USDA Forest Service - Chugach National Forest",
   "source_url": "https://www.fs.usda.gov/r10/chugach/alerts",
-  "checked_at": "2026-10-06T22:47:01Z",
-  "featured_status": "No Featured Alerts at this Time",
+  "checked_at": "2026-10-07T06:24:57Z",
+  "featured_status": "See current Forest Service alerts",
   "alerts": [
+    {
+      "title": "Landslide risk in Portage Valley",
+      "summary": "Chugach NF Geological Hazards Alert Start Date: October 6, 2026 Alert End Date: N/A Contact Information Contact Name: Public Affairs Contact Number: (907) 215-5598 Contact Email: victoria.granado@usda.gov Rec Sites Affected Portage Glacier & Portage Valley Williwaw Campground Bla",
+      "url": "https://www.fs.usda.gov/r10/chugach/alerts/landslide-risk-portage-valley",
+      "start_date": "October 6, 2026"
+    },
     {
       "title": "Russian River Occupancy and Use Restrictions",
       "summary": "36 CFR \u00a7 261.58(s) Leaving a wildlife attractant unattended, unless acceptably stored.",
